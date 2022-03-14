@@ -4,7 +4,7 @@ function Range({ RangeData, setRangeData }) {
   };
   return (
     <div className="mb-16">
-      <h6 className="text-black font-semibold text-lg pb-8">Within</h6>
+      <h6 className="text-black font-semibold text-lg pb-3">Within</h6>
       <div className="h-rs-container">
         <div className="h-rs">
           <span className="h-rs-indicator">

@@ -14,6 +14,7 @@ function Inputs({ loading, setInputData }) {
   const [RangeData, setRangeData] = useState(3);
 
   const handleInputData = () => {
+    console.log("clickkkk");
     setInputData({
       location: LocationData,
       openOnly: OpenOnlyData,
@@ -36,30 +37,25 @@ function Inputs({ loading, setInputData }) {
         setOpenOnlyData={setOpenOnlyData}
       ></OpenOnly>
       <div>
-        <button className="bg-black  text-white text-lg tracking-wider font-medium  py-2.5 px-8 border-2 border-black  rounded-full mr-6   hover:bg-[#bdffd7] btn1 hover:text-black">
+        <button
+          disabled={(LocationData.length > 2 ? false : true) || loading}
+          onClick={handleInputData}
+          id="getRestBtn"
+          className="bg-black  text-white text-lg tracking-wider font-medium  py-2.5 px-8 border-2 border-black  rounded-full mr-6  btn1"
+        >
+          {loading ? (
+            <div
+              className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500"
+              role="status"
+            >
+              <span className="visually-hidden">|</span>
+            </div>
+          ) : (
+            <div></div>
+          )}
           Get Restaurants
         </button>
       </div>
-      {/* <Location
-        LocationData={LocationData}
-        setLocationData={setLocationData}
-      ></Location>
-      <OpenOnly
-        OpenOnly={OpenOnlyData}
-        setOpenOnlyData={setOpenOnlyData}
-      ></OpenOnly>
-      <Price PriceData={PriceData} setPriceData={setPriceData}></Price>
-      <Stars StarsData={StarsData} setStarsData={setStarsData}></Stars>
-      <Range RangeData={RangeData} setRangeData={setRangeData}></Range>
-      <input
-        type="Button"
-        isLoading={loading}
-        mt={8}
-        isDisabled={LocationData.length > 2 ? false : true}
-        onClick={handleInputData}
-      >
-        Get Restaurants
-      </input> */}
     </>
   );
 }

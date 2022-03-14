@@ -7,6 +7,19 @@ html {
   width: 100%;
 }
 
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#getRestBtn:hover:enabled {
+  color: black;
+}
+
 h1 {
   font-family: "Baloo Paaji", sans-serif;
 }
@@ -30,10 +43,14 @@ body {
   box-shadow: 5px 5px black;
   background-color: #d2bdff !important;
 }
-.btn1:hover {
+.btn1:enabled:hover {
   background-color: #bdffd7 !important;
 }
-
+.btn1:disabled {
+  border: 1px solid #999999;
+  background-color: #b3b3b3;
+  color: #666666;
+}
 .img {
   width: 500px !important;
 }
@@ -181,6 +198,9 @@ li {
 
   .col2 {
     text-align: center !important;
+  }
+  .img {
+    display: none;
   }
   /* .img {
     height: 350px !important;

@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
-
-// import { Wheel } from "react-custom-roulette";
+import { Wheel } from "react-custom-roulette";
 
 function RestWheel({
   RestaurantData,
-  setRestaurantData,
   setWinner,
   openModal,
+  setUserShowWheel,
+  spin,
+  setSpin,
 }) {
   const [data, setData] = useState({});
   const [spinWheel, setSpinWheel] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
+
   const showInputs = () => {
-    setRestaurantData({});
+    setUserShowWheel(false);
   };
   function getRandom(length) {
     return Math.floor(Math.random() * length);
@@ -44,36 +46,49 @@ function RestWheel({
           restaurant.name.length > 15
             ? restaurant.name.slice(0, 15)
             : restaurant.name;
-        switch (index % 4) {
+        switch (index % 5) {
           case 0:
             return {
               ...restaurant,
               option: option,
-              style: { backgroundColor: "#F4E43E", textColor: "black" },
+              style: { backgroundColor: "#9B51F5", textColor: "black" },
             };
           case 1:
             return {
               ...restaurant,
               option: option,
-              style: { backgroundColor: "#FF7014", textColor: "black" },
+              style: { backgroundColor: "#F250D7", textColor: "black" },
             };
           case 2:
             return {
               ...restaurant,
               option: option,
-              style: { backgroundColor: "#042e47", textColor: "white" },
+              style: { backgroundColor: "#BAFFAE", textColor: "black" },
             };
           case 3:
             return {
               ...restaurant,
               option: option,
-              style: { backgroundColor: "#55B7DD", textColor: "black" },
+              style: { backgroundColor: "#D14AF0", textColor: "black" },
+            };
+          case 4:
+            return {
+              ...restaurant,
+              option: option,
+              style: { backgroundColor: "#F4AEFF", textColor: "black" },
             };
         }
       });
       setData(result);
     }
   }, [RestaurantData]);
+
+  useEffect(() => {
+    if (spin === true) {
+      setSpin(false);
+      handleSpinClick();
+    }
+  }, [spin]);
 
   const handleSpinClick = () => {
     console.log(data);
@@ -88,27 +103,22 @@ function RestWheel({
   };
 
   return (
-    <>testing</>
-    // <VStack spacing="24px">
-    //   <Wheel
-    //     mustStartSpinning={spinWheel}
-    //     outerBorderWidth={2}
-    //     innerRadius={1}
-    //     textDistance={60}
-    //     prizeNumber={prizeNumber}
-    //     data={data}
-    //     onStopSpinning={() => {
-    //       setSpinWheel(false);
-    //       handleWinner();
-    //     }}
-    //     backgroundColors={["#3e3e3e", "#df3428"]}
-    //     textColors={["#ffffff"]}
-    //   />
-    //   <Button onClick={handleSpinClick}>Spin Wheel</Button>
-    //   <Button colorScheme={"pink"} onClick={showInputs}>
-    //     Show Inputs
-    //   </Button>
-    // </VStack>
+    <>
+      <Wheel
+        mustStartSpinning={spinWheel}
+        outerBorderWidth={2}
+        innerRadius={1}
+        textDistance={60}
+        prizeNumber={prizeNumber}
+        data={data}
+        onStopSpinning={() => {
+          setSpinWheel(false);
+          handleWinner();
+        }}
+        backgroundColors={["#3e3e3e", "#df3428"]}
+        textColors={["#ffffff"]}
+      />
+    </>
   );
 }
 
