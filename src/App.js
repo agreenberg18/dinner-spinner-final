@@ -1,12 +1,21 @@
 import React from "react";
 
 import { useState, useEffect } from "react";
+import { Box, Flex, Center } from "@chakra-ui/react";
 import burger from "./assets/burger.png";
+import logo from "./assets/logo.png";
 
 import Inputs from "./UI/Inputs";
 import RestWheel from "./UI/RestWheel";
 import ModalWinner from "./UI/ModalWinner";
-import { click } from "@testing-library/user-event/dist/click";
+
+import TagManager from "react-gtm-module";
+
+const tagManagerArgs = {
+  gtmId: "GTM-NMKSMHQ",
+};
+
+TagManager.initialize(tagManagerArgs);
 
 function App() {
   const [inputData, setInputData] = useState({});
@@ -21,10 +30,6 @@ function App() {
     setModal(true);
   };
 
-  const clickSpin = () => {
-    setSpin(true);
-    console.log("clicked ");
-  };
   useEffect(() => {
     if (inputData.range !== undefined) {
       console.log(inputData);
@@ -37,16 +42,16 @@ function App() {
   const getRestaurantData = async () => {
     setLoading(true);
     var meters = parseInt(inputData.range) * 1609;
-    // window.dataLayer.push({
-    //   event: "getRestaurants",
-    //   restaurantData: {
-    //     location: inputData.location,
-    //     price: inputData.price,
-    //     open_now: inputData.openOnly,
-    //     radius: inputData.range,
-    //     rating: inputData.stars,
-    //   },
-    // });
+    window.dataLayer.push({
+      event: "getRestaurants",
+      restaurantData: {
+        location: inputData.location,
+        price: inputData.price,
+        open_now: inputData.openOnly,
+        radius: inputData.range,
+        rating: inputData.stars,
+      },
+    });
 
     var requestOptions = {
       method: "GET",
@@ -87,66 +92,75 @@ function App() {
     return restaurantsFmt;
   };
   return (
-    <div className="sec">
-      <section className="md:pl-14 lg:pl-28 pt-5 sec">
-        <h1 className="text-black md:text-6xl lg:text-6xl font-normal text-center h1-like">
-          Dinner Spinner
-        </h1>
-        <p className="text-center text-black text-xl pb-6">
-          What's for Dinner?
-        </p>
-      </section>
-      {!userShowWheel ? (
-        <div className="ml-5 sm:grid md:grid lg:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
-          <div>
-            <Inputs loading={loading} setInputData={setInputData}></Inputs>
-          </div>
-          <div>
-            <img src={burger} className="img" />
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center content-center justify-center ">
-          <div className="">
-            <RestWheel
-              RestaurantData={RestaurantData}
-              setRestaurantData={setRestaurantData}
-              setWinner={setWinner}
-              openModal={openModal}
-              setUserShowWheel={setUserShowWheel}
-              spin={spin}
-              setSpin={setSpin}
-            ></RestWheel>
-          </div>
-          <div>
-            <button
-              onClick={clickSpin}
-              className="ml-6 bg-black btn1 text-white text-lg tracking-wider font-medium  py-2.5 px-8 border-2 border-black  rounded-full mr-6   hover:bg-[#bdffd7] hover:text-black mb-6"
-            >
-              Spin wheel
-            </button>
-            <div className=" text-center">
-              <span
-                onClick={() => {
-                  setUserShowWheel(false);
-                }}
-                className="text-lg unselectable"
-              >
-                <i
-                  className="fa fa-long-arrow-left  pr-2"
-                  aria-hidden="true"
-                ></i>
-                Back
-              </span>
+    <Flex
+      backgroundImage="url('./assets/bg.png')"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      flexDirection="column"
+      justifyContent="space-between"
+      className="theBody"
+    >
+      <Box>
+        <section className="md:pl-14 lg:pl-28 pt-5 sec">
+          <h1 className="text-black md:text-6xl lg:text-6xl font-normal text-center h1-like">
+            Dinner Spinner
+          </h1>
+          <p className="text-center text-black text-xl pb-6">
+            What's for Dinner?
+          </p>
+        </section>
+        {!userShowWheel ? (
+          <div className="ml-5 mr-5 sm:grid md:grid lg:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
+            <div>
+              <Inputs loading={loading} setInputData={setInputData}></Inputs>
+            </div>
+            <div>
+              <img src={burger} className="img" />
             </div>
           </div>
-        </div>
-      )}
-      <button data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-        testing
-      </button>
-      <ModalWinner></ModalWinner>
-    </div>
+        ) : (
+          <section className="md:pl-14 lg:pl-28 pt-5">
+            <div className="flex flex-col items-center content-center justify-center ">
+              <div className="">
+                <RestWheel
+                  RestaurantData={RestaurantData}
+                  setRestaurantData={setRestaurantData}
+                  setWinner={setWinner}
+                  openModal={openModal}
+                  setUserShowWheel={setUserShowWheel}
+                  spin={spin}
+                  setSpin={setSpin}
+                ></RestWheel>
+              </div>
+              <div>
+                <div className=" text-center">
+                  <span
+                    onClick={() => {
+                      setUserShowWheel(false);
+                    }}
+                    className="text-lg unselectable"
+                  >
+                    <i
+                      className="fa fa-long-arrow-left  pr-2"
+                      aria-hidden="true"
+                    ></i>
+                    Back
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+        <ModalWinner
+          modal={modal}
+          setModal={setModal}
+          winner={winner}
+        ></ModalWinner>
+      </Box>
+      <Center className="secBox" alignItems="flex-end">
+        <img className="logo" src={logo} alt="logo" />
+      </Center>
+    </Flex>
   );
 }
 

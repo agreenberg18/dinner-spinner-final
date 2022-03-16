@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Spinner, Flex } from "@chakra-ui/react";
 import { Wheel } from "react-custom-roulette";
 
 function RestWheel({
@@ -11,6 +12,7 @@ function RestWheel({
 }) {
   const [data, setData] = useState({});
   const [spinWheel, setSpinWheel] = useState(false);
+  const [wheelLoader, setWheelLoader] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
 
   const showInputs = () => {
@@ -80,15 +82,16 @@ function RestWheel({
         }
       });
       setData(result);
+      setWheelLoader(true);
     }
   }, [RestaurantData]);
 
-  useEffect(() => {
-    if (spin === true) {
-      setSpin(false);
-      handleSpinClick();
-    }
-  }, [spin]);
+  // useEffect(() => {
+  //   if (spin === true) {
+  //     setSpin(false);
+  //     handleSpinClick();
+  //   }
+  // }, [spin]);
 
   const handleSpinClick = () => {
     console.log(data);
@@ -104,20 +107,39 @@ function RestWheel({
 
   return (
     <>
-      <Wheel
-        mustStartSpinning={spinWheel}
-        outerBorderWidth={2}
-        innerRadius={1}
-        textDistance={60}
-        prizeNumber={prizeNumber}
-        data={data}
-        onStopSpinning={() => {
-          setSpinWheel(false);
-          handleWinner();
-        }}
-        backgroundColors={["#3e3e3e", "#df3428"]}
-        textColors={["#ffffff"]}
-      />
+      {!wheelLoader ? (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="#9B51F5"
+          size="xl"
+        />
+      ) : (
+        <Flex flexDirection="column">
+          <Wheel
+            mustStartSpinning={spinWheel}
+            outerBorderWidth={2}
+            innerRadius={1}
+            textDistance={60}
+            prizeNumber={prizeNumber}
+            data={data}
+            onStopSpinning={() => {
+              setSpinWheel(false);
+              handleWinner();
+            }}
+            backgroundColors={["#3e3e3e", "#df3428"]}
+            textColors={["#ffffff"]}
+          />
+          <button
+            onClick={() => handleSpinClick()}
+            onTouchEnd={() => handleSpinClick()}
+            className="btn2 text-black text-lg tracking-wider font-medium  py-2.5 px-8 border-2 border-black  rounded-full   mb-6"
+          >
+            Spin wheel
+          </button>
+        </Flex>
+      )}
     </>
   );
 }

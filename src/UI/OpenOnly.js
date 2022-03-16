@@ -3,7 +3,7 @@ function OpenOnly({ OpenOnlyData, setOpenOnlyData }) {
     setOpenOnlyData(event.target.checked);
   };
   return (
-    <div className="flex my-4">
+    <div className="flex mt-4 mb-2">
       <h6 className="text-black font-semibold text-lg pb-4">Open only</h6>
       <label htmlFor="toggleB" className="flex items-center cursor-pointer">
         <div className="relative ml-5 -mt-2.5">

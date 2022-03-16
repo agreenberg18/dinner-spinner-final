@@ -1,5 +1,3 @@
-// import Rating from "react-rating";
-import { useState } from "react";
 import Rating from "react-rating";
 
 function Stars({ StarsData, setStarsData }) {
@@ -7,7 +5,6 @@ function Stars({ StarsData, setStarsData }) {
     setStarsData(val);
   };
 
-  const handleHover = (star) => {};
   return (
     <div className="mb-S">
       <h6 className="text-black font-semibold text-lg pb-2">Reviews</h6>

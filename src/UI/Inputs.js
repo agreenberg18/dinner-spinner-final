@@ -9,7 +9,7 @@ import Range from "./Range";
 function Inputs({ loading, setInputData }) {
   const [LocationData, setLocationData] = useState("");
   const [OpenOnlyData, setOpenOnlyData] = useState(true);
-  const [PriceData, setPriceData] = useState(3);
+  const [PriceData, setPriceData] = useState("3,4");
   const [StarsData, setStarsData] = useState(3);
   const [RangeData, setRangeData] = useState(3);
 

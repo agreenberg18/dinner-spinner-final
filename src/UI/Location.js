@@ -15,7 +15,7 @@ function Location({ LocationData, setLocationData }) {
         placeholder="City/Zip/Address"
         className="border-2 border-black rounded-full 
 	        px-4
-	        py-1.5 w-80 mb-8 textbox"
+	        py-1.5 w-80 mb-6 textbox"
       ></input>
     </>
   );

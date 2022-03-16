@@ -3,7 +3,7 @@ function Range({ RangeData, setRangeData }) {
     setRangeData(val.target.value);
   };
   return (
-    <div className="mb-16">
+    <div className="mb-10">
       <h6 className="text-black font-semibold text-lg pb-3">Within</h6>
       <div className="h-rs-container">
         <div className="h-rs">
